@@ -14,13 +14,7 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
   this.sourceTrees = sourceTrees
   this.inputFile = inputFile
   this.outputFile = outputFile
-  options = options || {}
-  this.lessOptions = {
-    imagePath: options.imagePath,
-    outputStyle: options.outputStyle,
-    sourceComments: options.sourceComments,
-    sourceMap: options.sourceMap
-  }
+  this.lessOptions = options || {}
 }
 
 LessCompiler.prototype.read = function (readTree) {
@@ -35,18 +29,18 @@ LessCompiler.prototype.read = function (readTree) {
         paths: includePaths,
       }
       _.merge(lessOptions, self.lessOptions)
-      options.paths = [path.dirname(options.filename)].concat(options.paths);
-      data = fs.readFileSync(self.inputFile, 'utf8');
+      lessOptions.paths = [path.dirname(lessOptions.filename)].concat(lessOptions.paths);
+      data = fs.readFileSync(lessOptions.filename, 'utf8');
 
       var parser = new(less.Parser)(lessOptions);
 
       var promise = new RSVP.Promise(function(resolve, reject) {
         parser.parse(data, function (e, tree) {
           if (e) {
-            less.writeError(e, options);
+            less.writeError(e, lessOptions);
             reject(e);
           }
-          var css = tree.toCSS(options);
+          var css = tree.toCSS(lessOptions);
           fs.writeFileSync(destFile, css, { encoding: 'utf8' });
 
           resolve(self._tmpDestDir);
