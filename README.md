@@ -41,3 +41,14 @@ var outputTree = compileLess(inputTrees, inputFile, outputFile, options)
 ```js
 var appCss = compileLess(sourceTrees, 'myapp/app.less', 'assets/app.css')
 ```
+
+## Caching
+
+This plugin determines whether or not to rebuild your LESS based on a stat
+cache of all LESS files in `inputTrees` (that is, any file that matches
+`**/*.less`. If any file in the tree has changed since your last build, it
+will rebuild your LESS.
+
+Because of this, be careful to not pass in a huge tree (i.e. a `vendor/`
+folder) to `inputTrees`, as it will recursively stat the files in it on each
+build.
