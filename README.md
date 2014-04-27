@@ -4,10 +4,10 @@ The broccoli-less-single plugin compiles `.less` files with
 [less.js](https://github.com/less/less.js).
 
 This plugin is designed to compile a single, primary input file
-into a single output file, with a tree of `@include`d dependencies. This
+into a single output file, with a tree of `@import`d dependencies. This
 differs from [broccoli-less](https://github.com/sindresorhus/broccoli-less/),
 which compiles each `.less` file individually into a `.css` file and doesn't
-support `@include`s or a single output file depending on multiple inputs.
+support `@import`s or a single output file depending on multiple inputs.
 
 This code is based heavily on
 [broccoli-sass](https://github.com/joliss/broccoli-sass/)
