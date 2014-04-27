@@ -41,3 +41,21 @@ var outputTree = compileLess(inputTrees, inputFile, outputFile, options)
 ```js
 var appCss = compileLess(sourceTrees, 'myapp/app.less', 'assets/app.css')
 ```
+
+### `@import`-Example
+
+```css
+/* file: sub.less */
+h1 {
+  font-size: 200em;
+}
+
+/* =================== */
+
+/* file: app.less */
+@import "sub.less";
+
+html, body {
+  margin: 20px;
+}
+```
