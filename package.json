@@ -1,7 +1,7 @@
 {
   "name": "broccoli-less-single",
   "description": "Single-file-output LESS compiler for Broccoli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Gabriel Grant",
     "email": "g@briel.ca"
@@ -10,6 +10,9 @@
     {
       "name": "Jo Liss",
       "email": "joliss42@gmail.com"
+    }, {
+      "name": "Jason Mitchell",
+      "email": "jason.mitchell.w@gmail.com"
     }
   ],
   "main": "index.js",
@@ -26,11 +29,10 @@
   "dependencies": {
     "mkdirp": "^0.3.5",
     "lodash": "~2.4.1",
-    "quick-temp": "^0.1.0",
-    "promise-map-series": "^0.2.0",
     "include-path-searcher": "^0.1.0",
-    "less": "~1.6.3",
-    "rsvp": "~3.0.6"
+    "less": "1.7.5",
+    "rsvp": "~3.0.6",
+    "broccoli-caching-writer": "0.5.1"
   },
   "readmeFilename": "README.md",
   "bugs": {
