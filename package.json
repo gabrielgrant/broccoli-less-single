@@ -27,12 +27,12 @@
     "css"
   ],
   "dependencies": {
-    "mkdirp": "^0.3.5",
+    "mkdirp": "^0.5.0",
     "lodash": "~2.4.1",
     "include-path-searcher": "^0.1.0",
-    "less": "1.7.5",
-    "rsvp": "~3.0.6",
-    "broccoli-caching-writer": "0.5.1"
+    "less": "~2.0.0",
+    "rsvp": "~3.0.14",
+    "broccoli-caching-writer": "~0.5.2"
   },
   "readmeFilename": "README.md",
   "bugs": {
