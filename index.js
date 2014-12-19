@@ -38,19 +38,23 @@ LessCompiler.prototype.updateCache = function (srcDir, destDir) {
   lessOptions.paths = [path.dirname(lessOptions.filename)].concat(lessOptions.paths);
   data = fs.readFileSync(lessOptions.filename, 'utf8');
 
-  var parser = new(less.Parser)(lessOptions);
-
   return new RSVP.Promise(function(resolve, reject) {
-    parser.parse(data, function (err, tree) {
-      if (err) {
+
+    less.render(data, lessOptions)
+      .then(function (output) {
+
+        fs.writeFile(destFile, output.css, { encoding: 'utf8' }, function (err) {
+          if (err) {
+            return reject(err);
+          }
+
+          return resolve(output);
+        });
+
+      }, function (err) {
         less.writeError(err, lessOptions);
         reject(err);
-      }
+      });
 
-      var css = tree.toCSS(lessOptions);
-      fs.writeFileSync(destFile, css, { encoding: 'utf8' });
-
-      resolve();
-    });
   });
 }
