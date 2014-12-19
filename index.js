@@ -16,7 +16,7 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
     return new LessCompiler(sourceTrees, inputFile, outputFile, options)
   }
 
-  CachingWriter.apply(this, arguments)
+  CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
 
   this.sourceTrees = sourceTrees
   this.inputFile = inputFile
