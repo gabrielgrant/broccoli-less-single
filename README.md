@@ -67,24 +67,17 @@ A sample project using bootstrap and broccoli-less-single can be found [here.](h
 ```js
 // Brocfile.js
 var pickFiles   = require('broccoli-static-compiler');
-var mergeTrees  = require('broccoli-merge-trees');
 var compileLess = require('broccoli-less-single');
+var mergeTrees  = require('broccoli-merge-trees');
 
-var appTree = pickFiles('app', {
-  srcDir:  '/',
-  destDir: '/'
+var app = pickFiles('app', {
+	srcDir:  '/',
+	destDir: '/'
 });
 
-var bowerTree = pickFiles('bower_components', {
-  srcDir:  '/',
-  destDir: 'bower_components'
-});
-
-var app = mergeTrees([appTree, bowerTree]);
-
-var lessTree = compileLess(app, 'styles/app.less', 'assets/app.css', {
-  paths: ['.', 'bower_components/bootstrap/less']
+var less = compileLess(app, 'styles/app.less', 'assets/app.css', {
+	paths: ['.', 'bower_components/bootstrap/less']
 })
 
-module.exports = mergeTrees([app, lessTree]);
+module.exports = mergeTrees([app, less]);
 ```
