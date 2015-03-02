@@ -59,3 +59,32 @@ html, body {
   margin: 20px;
 }
 ```
+
+### Bootstrap-Example
+
+A sample project using bootstrap and broccoli-less-single can be found [here.](https://github.com/jasonmit/broccoli-less-single-example)
+
+```js
+// Brocfile.js
+var pickFiles   = require('broccoli-static-compiler');
+var mergeTrees  = require('broccoli-merge-trees');
+var compileLess = require('broccoli-less-single');
+
+var appTree = pickFiles('app', {
+  srcDir:  '/',
+  destDir: '/'
+});
+
+var bowerTree = pickFiles('bower_components', {
+  srcDir:  '/',
+  destDir: 'bower_components'
+});
+
+var app = mergeTrees([appTree, bowerTree]);
+
+var lessTree = compileLess(app, 'styles/app.less', 'assets/app.css', {
+  paths: ['.', 'bower_components/bootstrap/less']
+})
+
+module.exports = mergeTrees([app, lessTree]);
+```
