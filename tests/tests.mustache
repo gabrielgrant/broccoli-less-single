@@ -1,0 +1,22 @@
+<html>
+<head>
+  <link href="/tests/tmp/app.css" rel="stylesheet" type="text/css"/>
+  <link href="/node_modules/qunitjs/qunit/qunit.css" rel="stylesheet" type="text/css"/>
+  <script src="/node_modules/qunitjs/qunit/qunit.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/testem.js"></script>
+
+  {{#serve_files}}
+  <script src="/{{src}}"></script>
+  {{/serve_files}}
+</head>
+<body>
+
+<div class="basic-test">
+  This is my basic test
+
+  <p class="foo">Foo: <span class="bar">Bar</span></p>
+</div>
+
+</body>
+</html>
