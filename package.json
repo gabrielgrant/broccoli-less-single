@@ -32,7 +32,7 @@
     "css"
   ],
   "scripts": {
-    "test": "testem ci",
+    "test": "testem ci"
   },
   "dependencies": {
     "mkdirp": "^0.5.0",
