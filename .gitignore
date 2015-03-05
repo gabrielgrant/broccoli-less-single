@@ -15,3 +15,7 @@ Thumbs.db
 /coverage/*
 *.orig
 /*.iml
+
+# testing
+/tmp/*
+/tests/tmp/*

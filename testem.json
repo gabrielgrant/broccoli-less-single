@@ -1,0 +1,9 @@
+{
+  "framework": "qunit",
+  "launch_in_ci": ["phantomjs"],
+  "before_tests": "rm -rf tests/tmp; node_modules/broccoli-cli/bin/broccoli build tests/tmp",
+  "test_page": "tests/tests.mustache",
+  "src_files": [
+    "tests/js/*-test.js"
+  ]
+}
