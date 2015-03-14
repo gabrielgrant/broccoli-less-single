@@ -10,10 +10,12 @@
     {
       "name": "Jo Liss",
       "email": "joliss42@gmail.com"
-    }, {
+    },
+    {
       "name": "Jason Mitchell",
       "email": "jason.mitchell.w@gmail.com"
-    }, {
+    },
+    {
       "name": "Eugene Song",
       "email": "tilleps@gmail.com"
     }
@@ -29,17 +31,24 @@
     "less",
     "css"
   ],
+  "scripts": {
+    "test": "mocha test/runner.js --reporter spec"
+  },
   "dependencies": {
     "mkdirp": "^0.5.0",
     "lodash": "^2.4.1",
     "include-path-searcher": "^0.1.0",
     "less": "^2.1.1",
-    "rsvp": "^3.0.15",
+    "rsvp": "^3.0.17",
     "broccoli-caching-writer": "^0.5.4"
   },
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/gabrielgrant/broccoli-less-single/issues"
   },
-  "homepage": "https://github.com/gabrielgrant/broccoli-less-single"
+  "homepage": "https://github.com/gabrielgrant/broccoli-less-single",
+  "devDependencies": {
+    "broccoli": "^0.13.3",
+    "mocha": "^2.2.1"
+  }
 }

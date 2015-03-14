@@ -1,0 +1,10 @@
+.basic-test {
+  background-color: green;
+}
+.basic-test .foo {
+  font-size: 17px;
+}
+.basic-test .bar {
+  font-size: 20px;
+  color: #ff0000;
+}
