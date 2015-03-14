@@ -3,6 +3,7 @@
 # except
 !.gitignore
 !.gitkeep
+!.travis.yml
 
 # dependencies
 /node_modules
@@ -15,3 +16,6 @@ Thumbs.db
 /coverage/*
 *.orig
 /*.iml
+
+# testing
+/test/utils/tmp/*

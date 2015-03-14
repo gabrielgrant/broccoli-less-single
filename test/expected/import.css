@@ -1,0 +1,15 @@
+.basic-test {
+  background-color: green;
+}
+.basic-test .foo {
+  font-size: 17px;
+}
+.basic-test .bar {
+  font-size: 20px;
+  color: #ff0000;
+}
+.class {
+  width: calc(95%);
+  height: 25px;
+  font-size: 0.25;
+}
