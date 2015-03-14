@@ -1,5 +1,7 @@
 # broccoli-less-single
 
+[![Build Status][travis-badge]][travis]
+
 The broccoli-less-single plugin compiles `.less` files with
 [less.js](https://github.com/less/less.js).
 
@@ -81,3 +83,5 @@ var less = compileLess(app, 'styles/app.less', 'assets/app.css', {
 
 module.exports = mergeTrees([app, less]);
 ```
+[travis]: https://travis-ci.org/gabrielgrant/broccoli-less-single
+[travis-badge]: https://img.shields.io/travis/gabrielgrant/broccoli-less-single.svg?style=flat-square
