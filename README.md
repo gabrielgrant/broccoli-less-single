@@ -1,5 +1,5 @@
 # broccoli-less-single
-
+[![npm Version][npm-badge]][npm]
 [![Build Status][travis-badge]][travis]
 
 The broccoli-less-single plugin compiles `.less` files with
@@ -83,5 +83,7 @@ var less = compileLess(app, 'styles/app.less', 'assets/app.css', {
 
 module.exports = mergeTrees([app, less]);
 ```
+[npm]: https://www.npmjs.org/package/broccoli-less-single
+[npm-badge]: https://img.shields.io/npm/v/broccoli-less-single.svg?style=flat-square
 [travis]: https://travis-ci.org/gabrielgrant/broccoli-less-single
 [travis-badge]: https://img.shields.io/travis/gabrielgrant/broccoli-less-single.svg?branch=master&style=flat-square
