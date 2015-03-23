@@ -11,6 +11,19 @@ module.exports = LessCompiler;
 LessCompiler.prototype = Object.create(CachingWriter.prototype)
 LessCompiler.prototype.constructor = LessCompiler
 
+function writeSourcemapFile(destFile, mapContent, mapOptions, callback) {
+  var filename = destFile.replace('.css', '.map');
+
+  if (mapOptions.hasOwnProperty('sourceMapURL')) {
+    outputDir = path.dirname(destFile);
+    filename = path.basename(mapOptions.sourceMapURL);
+    filename = path.join(outputDir, filename);
+  }
+
+  fs.writeFile(filename, mapContent, { encoding: 'utf8' }, callback);
+}
+
+
 function LessCompiler (sourceTrees, inputFile, outputFile, options) {
   if (!(this instanceof LessCompiler)) {
     return new LessCompiler(sourceTrees, inputFile, outputFile, options)
@@ -43,13 +56,19 @@ LessCompiler.prototype.updateCache = function (srcDir, destDir) {
     less.render(data, lessOptions)
       .then(function (output) {
 
-        fs.writeFile(destFile, output.css, { encoding: 'utf8' }, function (err) {
-          if (err) {
-            return reject(err);
-          }
+	  function fileCallback (err) {
+	    if (err) {
+	      return reject(err);
+	    }
 
-          return resolve(output);
-        });
+	    return resolve(output);
+	  }
+
+    fs.writeFile(destFile, output.css, { encoding: 'utf8' }, fileCallback);
+
+	  if (lessOptions.hasOwnProperty('sourceMap')) {
+	    writeSourcemapFile(destFile, output.map, lessOptions.sourceMap, fileCallback);
+	  }
 
       }, function (err) {
         less.writeError(err, lessOptions);
