@@ -14,13 +14,11 @@ module.exports = function (inputTrees, inputFile, outputFile, lessOptions) {
 
   var less = compileLess.apply(this, arguments);
 
-  return new RSVP.Promise(function (resolve, reject) {
-    return new broccoli.Builder(less).build().then(function (results) {
-      resolve({
-        css: read(path.join(results.directory, outputFile)),
-        directory: results.directory,
-        outputFile: outputFile
-      });
-    });
+  return new broccoli.Builder(less).build().then(function (results) {
+    return {
+      css: read(path.join(results.directory, outputFile)),
+      directory: results.directory,
+      outputFile: outputFile
+    };
   });
 }

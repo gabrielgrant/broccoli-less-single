@@ -32,15 +32,16 @@
     "css"
   ],
   "scripts": {
-    "test": "mocha test/runner.js --reporter spec"
+    "test": "mocha test/runner.js --reporter spec",
+    "test:debug": "mocha debug test/runner.js --reporter spec"
   },
   "dependencies": {
-    "mkdirp": "^0.5.0",
-    "lodash": "^2.4.1",
+    "broccoli-caching-writer": "^0.5.4",
     "include-path-searcher": "^0.1.0",
     "less": "^2.5.0",
-    "rsvp": "^3.0.17",
-    "broccoli-caching-writer": "^0.5.4"
+    "lodash-node": "^3.8.0",
+    "mkdirp": "^0.5.0",
+    "rsvp": "^3.0.17"
   },
   "readmeFilename": "README.md",
   "bugs": {
@@ -49,6 +50,6 @@
   "homepage": "https://github.com/gabrielgrant/broccoli-less-single",
   "devDependencies": {
     "broccoli": "^0.13.3",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.4"
   }
 }

@@ -3,24 +3,23 @@ var read = require('../utils/read')
 var lessCompile = require('../utils/build');
 var expected = path.join(__dirname, '..', 'expected');
 
-function compare (name, done, lessOptions) {
-  lessCompile('../less', name + '.less', name + '.css', lessOptions).then(function (result) {
+function compare (name, lessOptions) {
+  return lessCompile('../less', name + '.less', name + '.css', lessOptions).then(function (result) {
     assert.equal(result.css, read(path.join(expected, result.outputFile)));
-    done();
-  }).catch(done);
+  });
 }
 
 describe('lessCompiler', function () {
-  it('basic less preprocessing', function (done) {
-    compare('basic', done);
+  it('basic less preprocessing', function () {
+    return compare('basic');
   });
 
-  it('import statements functioning', function (done) {
-    compare('import', done);
+  it('import statements functioning', function () {
+    return compare('import');
   });
 
-  it('`lessOption` discovers paths', function (done) {
-    compare('paths', done, {
+  it('`lessOption` discovers paths', function () {
+    return compare('paths', {
       paths: ['../less/branch']
     });
   });
