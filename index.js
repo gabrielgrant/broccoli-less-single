@@ -1,67 +1,63 @@
-var fs = require('fs')
-var path = require('path')
-var mkdirp = require('mkdirp')
-var includePathSearcher = require('include-path-searcher')
-var CachingWriter = require('broccoli-caching-writer')
-var less = require('less')
-var merge = require('lodash-node/modern/object/merge')
+var fs = require('fs');
+var path = require('path');
+var mkdirp = require('mkdirp');
+var includePathSearcher = require('include-path-searcher');
+var CachingWriter = require('broccoli-caching-writer');
+var less = require('less');
+var merge = require('lodash-node/modern/object/merge');
 var RSVP = require('rsvp');
 var writeFile = RSVP.denodeify(fs.writeFile);
 
 module.exports = LessCompiler;
 
-LessCompiler.prototype = Object.create(CachingWriter.prototype)
-LessCompiler.prototype.constructor = LessCompiler
+LessCompiler.prototype = Object.create(CachingWriter.prototype);
+LessCompiler.prototype.constructor = LessCompiler;
 
 function LessCompiler (sourceTrees, inputFile, outputFile, options) {
   if (!(this instanceof LessCompiler)) {
     return new LessCompiler(sourceTrees, inputFile, outputFile, options)
   }
 
-  CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
+  CachingWriter.apply(this, [arguments[0]].concat(arguments[3]));
 
-  options = options || {};
+  this.sourceTrees = sourceTrees;
+  this.inputFile   = inputFile;
+  this.outputFile  = outputFile;
+  this.options     = options || {};
+}
+
+LessCompiler.prototype.updateCache = function (srcDir, destDir) {
+  var destFile = destDir + '/' + this.outputFile;
+
+  mkdirp.sync(path.dirname(destFile));
+
+  var options = this.options;
+
+  options.filename = includePathSearcher.findFileSync(this.inputFile, srcDir);
+
+  options.paths = [path.dirname(options.filename)].concat(options.paths);
+
   if (options.sourceMap) {
     if (typeof options.sourceMap !== 'object') {
       options.sourceMap = {};
     }
-    if (!options.sourceMap.sourceMapURL) {
-      options.sourceMap.sourceMapURL = outputFile + '.map';
-    }
+
+    options.sourceMap.sourceMapURL = this.outputFile + '.map';
   }
 
-  this.sourceTrees = sourceTrees
-  this.inputFile = inputFile
-  this.outputFile = outputFile
-  this.lessOptions = options
-}
+  data = fs.readFileSync(options.filename, 'utf8');
 
-LessCompiler.prototype.updateCache = function (srcDir, destDir) {
-  var destFile = destDir + '/' + this.outputFile
-
-  mkdirp.sync(path.dirname(destFile));
-
-  var lessOptions = {
-    filename: includePathSearcher.findFileSync(this.inputFile, srcDir),
-    paths: srcDir
-  }
-
-  merge(lessOptions, this.lessOptions)
-
-  lessOptions.paths = [path.dirname(lessOptions.filename)].concat(lessOptions.paths);
-  data = fs.readFileSync(lessOptions.filename, 'utf8');
-
-  return less.render(data, lessOptions).
+  return less.render(data, options).
     catch(function(err) {
-      less.writeError(err, lessOptions);
+      less.writeError(err, options);
       throw err;
     }).
     then(function (output) {
       var fileWriterPromises = [writeFile(destFile, output.css, { encoding: 'utf8' }) ];
-      var sourceMapURL = lessOptions.sourceMap && lessOptions.sourceMap.sourceMapURL;
+      var sourceMapURL = options.sourceMap && options.sourceMap.sourceMapURL;
 
       if (sourceMapURL) {
-        fileWriterPromises.push( writeFile(destDir + '/' + sourceMapURL, output.map, { encoding: 'utf8' }) );
+        fileWriterPromises.push(writeFile(destDir + '/' + sourceMapURL, output.map, { encoding: 'utf8' }));
       }
 
       return RSVP.Promise.all(fileWriterPromises);
