@@ -4,7 +4,7 @@ var mkdirp = require('mkdirp')
 var includePathSearcher = require('include-path-searcher')
 var CachingWriter = require('broccoli-caching-writer')
 var less = require('less')
-var merge = require('lodash-node/modern/object/merge')
+var merge = require('lodash.merge')
 var RSVP = require('rsvp');
 var writeFile = RSVP.denodeify(fs.writeFile);
 
