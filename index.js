@@ -5,8 +5,8 @@ var includePathSearcher = require('include-path-searcher')
 var CachingWriter = require('broccoli-caching-writer')
 var less = require('less')
 var merge = require('lodash.merge')
-var RSVP = require('rsvp');
-var writeFile = RSVP.denodeify(fs.writeFile);
+var RSVP = require('rsvp')
+var writeFile = RSVP.denodeify(fs.writeFile)
 
 module.exports = LessCompiler;
 
@@ -20,26 +20,28 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
 
   CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
 
-  options = options || {};
+  options = merge({}, options)
+
   if (options.sourceMap) {
     if (typeof options.sourceMap !== 'object') {
       options.sourceMap = {};
     }
+
     if (!options.sourceMap.sourceMapURL) {
       options.sourceMap.sourceMapURL = outputFile + '.map';
     }
   }
 
   this.sourceTrees = sourceTrees
-  this.inputFile = inputFile
-  this.outputFile = outputFile
+  this.inputFile   = inputFile
+  this.outputFile  = outputFile
   this.lessOptions = options
 }
 
 LessCompiler.prototype.updateCache = function (srcDir, destDir) {
   var destFile = destDir + '/' + this.outputFile
 
-  mkdirp.sync(path.dirname(destFile));
+  mkdirp.sync(path.dirname(destFile))
 
   var lessOptions = {
     filename: includePathSearcher.findFileSync(this.inputFile, srcDir),
