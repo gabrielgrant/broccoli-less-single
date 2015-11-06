@@ -17,8 +17,14 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
   if (!(this instanceof LessCompiler)) {
     return new LessCompiler(sourceTrees, inputFile, outputFile, options)
   }
+  
+  var cacheOptions = merge({
+    filterFromCache: {
+      include: [/.*\.less$/]
+    }
+  }, options)
 
-  CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
+  CachingWriter.call(this, sourceTrees, cacheOptions)
 
   options = merge({}, options)
 
