@@ -20,7 +20,7 @@ function LessCompiler (sourceTrees, inputFile, outputFile, options) {
   
   var cacheOptions = merge({
     filterFromCache: {
-      include: [/.*\.less$/]
+      include: [/.*\.(less|css)$/]
     }
   }, options)
 
