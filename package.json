@@ -43,15 +43,12 @@
     "mkdirp": "^0.5.0"
   },
   "devDependencies": {
-    "rsvp": "^3.0.17"
+    "broccoli": "^0.16.8",
+    "mocha": "^2.2.4"
   },
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/gabrielgrant/broccoli-less-single/issues"
   },
-  "homepage": "https://github.com/gabrielgrant/broccoli-less-single",
-  "devDependencies": {
-    "broccoli": "^0.13.3",
-    "mocha": "^2.2.4"
-  }
+  "homepage": "https://github.com/gabrielgrant/broccoli-less-single"
 }

@@ -22,7 +22,7 @@ function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
 
   // clone the _options hash to prevent mutating what was
   // passed into us with fallback values. see issue #29
-  options = merge({}, _options);
+  var options = merge({}, _options);
 
   if (options.sourceMap) {
     if (typeof options.sourceMap !== 'object') {

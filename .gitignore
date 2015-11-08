@@ -19,3 +19,4 @@ Thumbs.db
 
 # testing
 /test/utils/tmp/*
+npm-debug.log
