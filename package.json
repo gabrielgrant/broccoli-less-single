@@ -44,7 +44,8 @@
   },
   "devDependencies": {
     "broccoli": "^0.16.8",
-    "mocha": "^2.2.4"
+    "mocha": "^2.2.4",
+    "rsvp": "^3.1.0"
   },
   "readmeFilename": "README.md",
   "bugs": {

@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var read = require('../utils/read')
 var lessCompile = require('../utils/build');
