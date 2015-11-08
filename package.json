@@ -36,7 +36,7 @@
     "test:debug": "mocha debug test/runner.js --reporter spec"
   },
   "dependencies": {
-    "broccoli-caching-writer": "^0.5.4",
+    "broccoli-caching-writer": "^2.1.0",
     "include-path-searcher": "^0.1.0",
     "less": "^2.5.0",
     "lodash.merge": "^3.3.2",
