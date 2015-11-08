@@ -1,25 +1,27 @@
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
-var mkdirp = require('mkdirp');
-var includePathSearcher = require('include-path-searcher');
-var CachingWriter = require('broccoli-caching-writer');
 var less = require('less');
+var mkdirp = require('mkdirp');
 var merge = require('lodash.merge');
-var RSVP = require('rsvp');
-var writeFile = RSVP.denodeify(fs.writeFile);
+var CachingWriter = require('broccoli-caching-writer');
+var includePathSearcher = require('include-path-searcher');
 
 module.exports = LessCompiler;
 
 LessCompiler.prototype = Object.create(CachingWriter.prototype)
 LessCompiler.prototype.constructor = LessCompiler
 
-function LessCompiler (sourceTrees, inputFile, outputFile, _options) {
+function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
   if (!(this instanceof LessCompiler)) {
     return new LessCompiler(sourceTrees, inputFile, outputFile, _options);
   }
 
   CachingWriter.call(this, Array.isArray(sourceTrees) ? sourceTrees : [sourceTrees], _options);
 
+  // clone the _options hash to prevent mutating what was
+  // passed into us with fallback values. see issue #29
   options = merge({}, _options);
 
   if (options.sourceMap) {
@@ -32,10 +34,10 @@ function LessCompiler (sourceTrees, inputFile, outputFile, _options) {
     }
   }
 
+  this.lessOptions = options;
   this.sourceTrees = sourceTrees;
   this.inputFile   = inputFile;
   this.outputFile  = outputFile;
-  this.lessOptions = options;
 }
 
 LessCompiler.prototype.build = function() {
@@ -47,6 +49,7 @@ LessCompiler.prototype.build = function() {
     filename: includePathSearcher.findFileSync(this.inputFile, this.inputPaths),
     paths: this.inputPaths.slice()
   };
+
   this.inputPaths = lessOptions.paths.slice();
 
   merge(lessOptions, this.lessOptions);
@@ -64,12 +67,13 @@ LessCompiler.prototype.build = function() {
       fs.writeFileSync(destFile, output.css, {
         encoding: 'utf8'
       });
+
       var sourceMapURL = lessOptions.sourceMap && lessOptions.sourceMap.sourceMapURL;
 
       if (sourceMapURL) {
-       fs.writeFileSync(this.outputPath + '/' + sourceMapURL, output.map, {
-         encoding: 'utf8'
-       });
+        fs.writeFileSync(this.outputPath + '/' + sourceMapURL, output.map, {
+          encoding: 'utf8'
+        });
       }
     }.bind(this));
 };
