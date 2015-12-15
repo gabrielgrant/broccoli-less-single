@@ -2,7 +2,6 @@
 
 process.chdir(__dirname);
 
-var RSVP = require('rsvp');
 var path = require('path');
 var broccoli = require('broccoli');
 
