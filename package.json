@@ -1,7 +1,7 @@
 {
   "name": "broccoli-less-single",
   "description": "Single-file-output LESS compiler for Broccoli",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": {
     "name": "Gabriel Grant",
     "email": "g@briel.ca"
