@@ -10,8 +10,8 @@ var includePathSearcher = require('include-path-searcher');
 
 module.exports = LessCompiler;
 
-LessCompiler.prototype = Object.create(CachingWriter.prototype)
-LessCompiler.prototype.constructor = LessCompiler
+LessCompiler.prototype = Object.create(CachingWriter.prototype);
+LessCompiler.prototype.constructor = LessCompiler;
 
 function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
   if (!(this instanceof LessCompiler)) {
@@ -38,7 +38,7 @@ function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
   this.sourceTrees = sourceTrees;
   this.inputFile   = inputFile;
   this.outputFile  = outputFile;
-}
+};
 
 LessCompiler.prototype.build = function() {
   var destFile = this.outputPath + '/' + this.outputFile;
