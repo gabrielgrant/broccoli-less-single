@@ -1,12 +1,6 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var less = require('less');
-var mkdirp = require('mkdirp');
-var merge = require('lodash.merge');
 var CachingWriter = require('broccoli-caching-writer');
-var includePathSearcher = require('include-path-searcher');
 
 module.exports = LessCompiler;
 
@@ -22,7 +16,7 @@ function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
 
   // clone the _options hash to prevent mutating what was
   // passed into us with fallback values. see issue #29
-  var options = merge({}, _options);
+  var options = require('lodash.merge')({}, _options);
 
   if (options.sourceMap) {
     if (typeof options.sourceMap !== 'object') {
@@ -41,18 +35,23 @@ function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
 };
 
 LessCompiler.prototype.build = function() {
+  var fs = require('fs');
+  var less = require('less');
+  var path = require('path');
+  var mkdirp = require('mkdirp');
+
   var destFile = this.outputPath + '/' + this.outputFile;
 
   mkdirp.sync(path.dirname(destFile));
 
   var lessOptions = {
-    filename: includePathSearcher.findFileSync(this.inputFile, this.inputPaths),
+    filename: require('include-path-searcher').findFileSync(this.inputFile, this.inputPaths),
     paths: this.inputPaths.slice()
   };
 
   this.inputPaths = lessOptions.paths.slice();
 
-  merge(lessOptions, this.lessOptions);
+  require('lodash.merge')(lessOptions, this.lessOptions);
 
   lessOptions.paths = [path.dirname(lessOptions.filename)].concat(lessOptions.paths);
 
