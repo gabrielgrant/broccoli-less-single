@@ -8,15 +8,16 @@ var broccoli = require('broccoli');
 var compileLess = require('../../index');
 var read = require('./read');
 
-module.exports = function (inputTrees, inputFile, outputFile, lessOptions) {
-  inputTrees = !Array.isArray(inputTrees) ? [inputTrees] : inputTrees;
+module.exports = function (inputNodes, inputFile, outputFile, lessOptions) {
+  inputNodes = !Array.isArray(inputNodes) ? [inputNodes] : inputNodes;
 
-  var less = compileLess.apply(this, arguments);
+  var less = compileLess.apply(this, arguments),
+    builder = new broccoli.Builder(less);
 
-  return new broccoli.Builder(less).build().then(function (results) {
+  return builder.build().then(function () {
     return {
-      css: read(path.join(results.directory, outputFile)),
-      directory: results.directory,
+      css: read(path.join(builder.outputPath, outputFile)),
+      directory: builder.outputPath,
       outputFile: outputFile
     };
   });
