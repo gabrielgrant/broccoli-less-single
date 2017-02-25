@@ -7,12 +7,12 @@ module.exports = LessCompiler;
 LessCompiler.prototype = Object.create(CachingWriter.prototype);
 LessCompiler.prototype.constructor = LessCompiler;
 
-function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
+function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
   if (!(this instanceof LessCompiler)) {
-    return new LessCompiler(sourceTrees, inputFile, outputFile, _options);
+    return new LessCompiler(sourceNodes, inputFile, outputFile, _options);
   }
 
-  CachingWriter.call(this, Array.isArray(sourceTrees) ? sourceTrees : [sourceTrees], _options);
+  CachingWriter.call(this, Array.isArray(sourceNodes) ? sourceNodes : [sourceNodes], _options);
 
   // clone the _options hash to prevent mutating what was
   // passed into us with fallback values. see issue #29
@@ -29,7 +29,7 @@ function LessCompiler(sourceTrees, inputFile, outputFile, _options) {
   }
 
   this.lessOptions = options;
-  this.sourceTrees = sourceTrees;
+  this.sourceNodes = sourceNodes;
   this.inputFile   = inputFile;
   this.outputFile  = outputFile;
 };

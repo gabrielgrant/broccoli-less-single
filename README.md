@@ -6,7 +6,7 @@ The broccoli-less-single plugin compiles `.less` files with
 [less.js](https://github.com/less/less.js).
 
 This plugin is designed to compile a single, primary input file
-into a single output file, with a tree of `@import`d dependencies. This
+into a single output file, with a node of `@import`d dependencies. This
 differs from [broccoli-less](https://github.com/sindresorhus/broccoli-less/),
 which compiles each `.less` file individually into a `.css` file and doesn't
 support `@import`s or a single output file depending on multiple inputs.
@@ -25,14 +25,14 @@ npm install --save-dev broccoli-less-single
 ```js
 var compileLess = require('broccoli-less-single');
 
-var outputTree = compileLess(inputTrees, inputFile, outputFile, options)
+var outputNode = compileLess(inputNodes, inputFile, outputFile, options)
 ```
 
-* **`inputTrees`**: An array of trees that act as the include paths for
-  less. If you have a single tree, pass `[tree]`.
+* **`inputNodes`**: An array of nodes that act as the include paths for
+  less. If you have a single node, pass `[node]`.
 
 * **`inputFile`**: Relative path of the main `.less` file to compile. This
-  file must exist in one of the `inputTrees`.
+  file must exist in one of the `inputNodes`.
 
 * **`outputFile`**: Relative path of the output CSS file.
 
@@ -41,7 +41,7 @@ var outputTree = compileLess(inputTrees, inputFile, outputFile, options)
 ### Example
 
 ```js
-var appCss = compileLess(sourceTrees, 'myapp/app.less', 'assets/app.css')
+var appCss = compileLess(sourceNodes, 'myapp/app.less', 'assets/app.css')
 ```
 
 ### `@import`-Example
