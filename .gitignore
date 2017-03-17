@@ -18,5 +18,4 @@ Thumbs.db
 /*.iml
 
 # testing
-/test/utils/tmp/*
 npm-debug.log
