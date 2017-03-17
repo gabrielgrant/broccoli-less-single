@@ -7,7 +7,7 @@
 
 # dependencies
 /node_modules
-/test
+/tests
 
 # misc
 /connect.lock
@@ -19,5 +19,4 @@ Thumbs.db
 /*.iml
 
 # testing
-/test/utils/tmp/*
 npm-debug.log

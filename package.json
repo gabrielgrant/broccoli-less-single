@@ -32,8 +32,8 @@
     "css"
   ],
   "scripts": {
-    "test": "mocha test/runner.js --reporter spec",
-    "test:debug": "mocha debug test/runner.js --reporter spec"
+    "test": "mocha tests/index.js --reporter spec",
+    "test:debug": "mocha debug tests/index.js --reporter spec"
   },
   "dependencies": {
     "broccoli-caching-writer": "^2.3.1",
@@ -43,9 +43,9 @@
     "mkdirp": "^0.5.0"
   },
   "devDependencies": {
-    "broccoli": "^1.1.0",
-    "mocha": "^2.2.4",
-    "rsvp": "^3.1.0"
+    "broccoli-test-helper": "^1.1.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.2.4"
   },
   "readmeFilename": "README.md",
   "bugs": {
