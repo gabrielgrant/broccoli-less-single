@@ -14,16 +14,20 @@ function read(filepath) {
 }
 
 describe("BroccoliLessSingle", function() {
-  let input;
-  let output;
-  let subject;
+  let input = null;
+  let output = null;
 
   beforeEach(() => {
     return createTempDir().then(_input => {
       input = _input;
 
       this.createSubject = function(inputPath, ouputFile, options) {
-        subject = new LESSCompiler(input.path(), inputPath, ouputFile, options);
+        let subject = new LESSCompiler(
+          input.path(),
+          inputPath,
+          ouputFile,
+          options
+        );
         output = createBuilder(subject);
 
         return output.build().then(() => output.read());
@@ -32,16 +36,30 @@ describe("BroccoliLessSingle", function() {
   });
 
   afterEach(() => {
+    let final = () => {
+      input = null;
+      output = null;
+    };
+
     return Promise.all(
       [input, output]
         .filter(obj => {
           return obj && typeof obj.dispose === "function";
         })
-        .map(obj => obj.dispose())
+        .map(obj => {
+          return obj.dispose();
+        })
+    ).then(
+      () => final(),
+      e => {
+        final();
+
+        throw e;
+      }
     );
   });
 
-  it("exports a constructor", function() {
+  it("exports a constructor", () => {
     expect(typeof LESSCompiler).to.equal("function");
   });
 
