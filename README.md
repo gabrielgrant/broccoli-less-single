@@ -75,8 +75,8 @@ var mergeTrees  = require('broccoli-merge-trees');
 var app = new Funnel('app');
 
 var less = compileLess(app, 'styles/app.less', 'assets/app.css', {
-	paths: ['.', 'bower_components/bootstrap/less']
-})
+  paths: ['.', 'bower_components/bootstrap/less']
+});
 
 module.exports = mergeTrees([app, less]);
 ```
