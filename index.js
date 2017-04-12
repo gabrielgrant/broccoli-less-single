@@ -57,16 +57,14 @@ LessCompiler.prototype.build = function() {
       this.inputFile,
       this.inputPaths
     ),
-    paths: this.inputPaths.slice()
+    paths: []
   };
-
-  this.inputPaths = lessOptions.paths.slice();
 
   require("lodash.merge")(lessOptions, this.lessOptions);
 
-  lessOptions.paths = [path.dirname(lessOptions.filename)].concat(
-    lessOptions.paths
-  );
+  lessOptions.paths = [path.dirname(lessOptions.filename)]
+    .concat(this.inputPaths)
+    .concat(lessOptions.paths);
 
   var data = fs.readFileSync(lessOptions.filename, "utf8");
 
