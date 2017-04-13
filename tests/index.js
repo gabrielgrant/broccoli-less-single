@@ -65,19 +65,19 @@ describe("BroccoliLessSingle", function() {
 
   it("basic preprocessing", () => {
     input.write({
-      "input.less": read("/fixtures/basic/input.less", "utf8")
+      "input.less": read("/fixtures/basic/input.less")
     });
 
     return this.createSubject("input.less").then(out => {
       expect(out).to.deep.equal({
-        "input.css": read("/fixtures/basic/output.css", "utf8")
+        "input.css": read("/fixtures/basic/output.css")
       });
     });
   });
 
   it("basic preprocessing + sourceMap file detection", () => {
     input.write({
-      "input.less": read("/fixtures/basic/input.less", "utf8")
+      "input.less": read("/fixtures/basic/input.less")
     });
 
     return this.createSubject("input.less", "input.css", {
@@ -86,7 +86,7 @@ describe("BroccoliLessSingle", function() {
       }
     }).then(out => {
       expect(out["input.css"]).to.equal(
-        read("/fixtures/basic/output.css", "utf8") +
+        read("/fixtures/basic/output.css") +
           "/*# sourceMappingURL=input.map */"
       );
       expect(typeof out["input.map"]).to.equal("string");
@@ -95,13 +95,13 @@ describe("BroccoliLessSingle", function() {
 
   it("`import`", () => {
     input.write({
-      "input.less": read("/fixtures/import/input.less", "utf8"),
-      "input2.less": read("/fixtures/import/input2.less", "utf8")
+      "input.less": read("/fixtures/import/input.less"),
+      "input2.less": read("/fixtures/import/input2.less")
     });
 
     return this.createSubject("input.less", "output.css").then(out => {
       expect(out).to.deep.equal({
-        "output.css": read("/fixtures/import/output.css", "utf8")
+        "output.css": read("/fixtures/import/output.css")
       });
     });
   });
@@ -109,18 +109,28 @@ describe("BroccoliLessSingle", function() {
   it("`path` option", () => {
     input.write({
       styles: {
-        "input.less": read("/fixtures/paths/styles/input.less", "utf8")
+        "input.less": read("/fixtures/paths/styles/input.less")
       },
       src: {
-        "branch.less": read("/fixtures/paths/src/branch.less", "utf8")
+        "index.less": read("/fixtures/paths/src/index.less"),
+        a: {
+          "foo.less": read("/fixtures/paths/src/a/foo.less"),
+        },
+        b: {
+          "bar.less": read("/fixtures/paths/src/b/bar.less")
+        }
       }
     });
 
     return this.createSubject("styles/input.less", "output.css", {
-      paths: ["../src/branch"]
+      paths: [
+        path.join(input.path(), "src/"),
+        path.join(input.path(), "src/a"),
+        path.join(input.path(), "src/b"),
+      ]
     }).then(out => {
       expect(out).to.deep.equal({
-        "output.css": read("/fixtures/paths/output.css", "utf8")
+        "output.css": read("/fixtures/paths/output.css")
       });
     });
   });

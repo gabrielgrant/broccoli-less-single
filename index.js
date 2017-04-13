@@ -7,6 +7,10 @@ module.exports = LessCompiler;
 LessCompiler.prototype = Object.create(CachingWriter.prototype);
 LessCompiler.prototype.constructor = LessCompiler;
 
+function uniq(value, index, arr) {
+  return arr.indexOf(value) === index;
+}
+
 function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
   if (!(this instanceof LessCompiler)) {
     return new LessCompiler(sourceNodes, inputFile, outputFile, _options);
@@ -64,7 +68,8 @@ LessCompiler.prototype.build = function() {
 
   lessOptions.paths = [path.dirname(lessOptions.filename)]
     .concat(this.inputPaths)
-    .concat(lessOptions.paths);
+    .concat(lessOptions.paths)
+    .filter(uniq);
 
   var data = fs.readFileSync(lessOptions.filename, "utf8");
 

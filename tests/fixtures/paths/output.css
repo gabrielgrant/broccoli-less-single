@@ -1,6 +1,12 @@
 div {
   color: black;
 }
+div {
+  background: red;
+}
+div {
+  font-size: 12px;
+}
 p {
   color: white;
 }
