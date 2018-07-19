@@ -9,7 +9,7 @@
   color: #FF0000;
 }
 .class {
-  width: calc(95%);
+  width: calc(100% - (10px - 5px));
   height: 25px;
   font-size: 0.25;
 }
