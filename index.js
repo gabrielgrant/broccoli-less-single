@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var CachingWriter = require("broccoli-caching-writer");
+var CachingWriter = require('broccoli-caching-writer');
 
 module.exports = LessCompiler;
 
@@ -16,11 +16,7 @@ function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
     return new LessCompiler(sourceNodes, inputFile, outputFile, _options);
   }
 
-  CachingWriter.call(
-    this,
-    Array.isArray(sourceNodes) ? sourceNodes : [sourceNodes],
-    _options
-  );
+  CachingWriter.call(this, Array.isArray(sourceNodes) ? sourceNodes : [sourceNodes], _options);
 
   if (!outputFile) {
     outputFile = inputFile.replace(/\.less/i, '.css');
@@ -28,15 +24,15 @@ function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
 
   // clone the _options hash to prevent mutating what was
   // passed into us with fallback values. see issue #29
-  var options = require("lodash.merge")({}, _options);
+  var options = require('lodash.merge')({}, _options);
 
   if (options.sourceMap) {
-    if (typeof options.sourceMap !== "object") {
+    if (typeof options.sourceMap !== 'object') {
       options.sourceMap = {};
     }
 
     if (!options.sourceMap.sourceMapURL) {
-      options.sourceMap.sourceMapURL = outputFile + ".map";
+      options.sourceMap.sourceMapURL = outputFile + '.map';
     }
   }
 
@@ -47,51 +43,49 @@ function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
 }
 
 LessCompiler.prototype.build = function() {
-  var fs = require("fs");
-  var less = require("less");
-  var path = require("path");
-  var mkdirp = require("mkdirp");
+  var fs = require('fs');
+  var less = require('less');
+  var path = require('path');
+  var mkdirp = require('mkdirp');
 
-  var destFile = this.outputPath + "/" + this.outputFile;
+  var destFile = this.outputPath + '/' + this.outputFile;
 
   mkdirp.sync(path.dirname(destFile));
 
   var lessOptions = {
-    filename: require("include-path-searcher").findFileSync(
-      this.inputFile,
-      this.inputPaths
-    ),
+    filename: require('include-path-searcher').findFileSync(this.inputFile, this.inputPaths),
     paths: []
   };
 
-  require("lodash.merge")(lessOptions, this.lessOptions);
+  require('lodash.merge')(lessOptions, this.lessOptions);
 
   lessOptions.paths = [path.dirname(lessOptions.filename)]
     .concat(this.inputPaths)
     .concat(lessOptions.paths)
     .filter(uniq);
 
-  var data = fs.readFileSync(lessOptions.filename, "utf8");
+  var data = fs.readFileSync(lessOptions.filename, 'utf8');
 
   return less
     .render(data, lessOptions)
     .catch(function(err) {
-      less.writeError(err, lessOptions);
+      if (!lessOptions || (lessOptions && !lessOptions.silent)) {
+        console.error(err.toString(lessOptions));
+      }
 
       throw err;
     })
     .then(
-      (function(output) {
-        fs.writeFileSync(destFile, output.css, { encoding: "utf8" });
+      function(output) {
+        fs.writeFileSync(destFile, output.css, { encoding: 'utf8' });
 
-        var sourceMapURL = lessOptions.sourceMap &&
-          lessOptions.sourceMap.sourceMapURL;
+        var sourceMapURL = lessOptions.sourceMap && lessOptions.sourceMap.sourceMapURL;
 
         if (sourceMapURL) {
-          fs.writeFileSync(this.outputPath + "/" + sourceMapURL, output.map, {
-            encoding: "utf8"
+          fs.writeFileSync(this.outputPath + '/' + sourceMapURL, output.map, {
+            encoding: 'utf8'
           });
         }
-      }).bind(this)
+      }.bind(this)
     );
 };
