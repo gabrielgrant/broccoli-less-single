@@ -31,7 +31,7 @@ function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
       options.sourceMap = {};
     }
 
-    if (!options.sourceMap.sourceMapURL) {
+    if (!options.sourceMap.sourceMapURL && !options.sourceMap.sourceMapFileInline) {
       options.sourceMap.sourceMapURL = outputFile + '.map';
     }
   }
