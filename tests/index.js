@@ -93,6 +93,24 @@ describe("BroccoliLessSingle", function() {
     });
   });
 
+  it("basic preprocessing + inline sourceMap", () => {
+    input.write({
+      "input.less": read("/fixtures/basic/input.less")
+    });
+
+    return this.createSubject("input.less", "input.css", {
+      sourceMap: {
+        sourceMapFileInline: true
+      }
+    }).then(out => {
+      expect(out["input.css"]).to.have.string(
+        read("/fixtures/basic/output.css") +
+          "/*# sourceMappingURL=data:application/json;base64"
+      );
+      expect(out["input.map"]).to.be.undefined;
+    })
+  });
+
   it("`import`", () => {
     input.write({
       "input.less": read("/fixtures/import/input.less"),
