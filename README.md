@@ -68,17 +68,18 @@ A sample project using bootstrap and broccoli-less-single can be found [here.](h
 
 ```js
 // Brocfile.js
-var Funnel   = require('broccoli-funnel');
-var compileLess = require('broccoli-less-single');
-var mergeTrees  = require('broccoli-merge-trees');
+const Funnel      = require('broccoli-funnel');
+const compileLess = require('broccoli-less-single');
+const mergeTrees  = require('broccoli-merge-trees');
 
-var app = new Funnel('app');
-
-var less = compileLess(app, 'styles/app.less', 'assets/app.css', {
-  paths: ['.', 'bower_components/bootstrap/less']
+const appTree = funnel('app');
+const lessTree = compileLess(appTree, 'styles/app.less', 'assets/app.css', {
+  paths: ['.', 'bower_components/bootstrap/less'],
+  // Note: if you want to cache to avoid possibly expensive rebuilds
+  cacheInclude: [/.*\.(css|less)$/]
 });
 
-module.exports = mergeTrees([app, less]);
+module.exports = mergeTrees([appTree, lessTree]);
 ```
 [npm]: https://www.npmjs.org/package/broccoli-less-single
 [npm-badge]: https://img.shields.io/npm/v/broccoli-less-single.svg?style=flat-square
