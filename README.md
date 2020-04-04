@@ -23,9 +23,9 @@ npm install --save-dev broccoli-less-single
 ## Usage
 
 ```js
-var compileLess = require('broccoli-less-single');
+const compileLess = require('broccoli-less-single');
 
-var outputNode = compileLess(inputNodes, inputFile, outputFile, options)
+const outputNode = compileLess(inputNodes, inputFile, outputFile, options)
 ```
 
 * **`inputNodes`**: An array of nodes that act as the include paths for
