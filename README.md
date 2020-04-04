@@ -36,7 +36,7 @@ var outputNode = compileLess(inputNodes, inputFile, outputFile, options)
 
 * **`outputFile`**: Relative path of the output CSS file.
 
-* **`options`**: A hash of options for less.
+* **`options`**: A hash of options for less + caching options.
 
 ### Example
 
