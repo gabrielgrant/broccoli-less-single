@@ -76,7 +76,8 @@ const appTree = funnel('app');
 const lessTree = compileLess(appTree, 'styles/app.less', 'assets/app.css', {
   paths: ['.', 'bower_components/bootstrap/less'],
   // Note: if you want to cache to avoid possibly expensive rebuilds
-  cacheInclude: [/.*\.(css|less)$/]
+  cacheInclude: [/.*\.(css|less)$/],
+  cacheExclude: [],
 });
 
 module.exports = mergeTrees([appTree, lessTree]);
