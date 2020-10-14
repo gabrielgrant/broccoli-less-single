@@ -6,6 +6,9 @@
     "name": "Gabriel Grant",
     "email": "g@briel.ca"
   },
+  "directories": {
+    "test": "tests"
+  },
   "contributors": [
     {
       "name": "Jo Liss",
@@ -47,7 +50,6 @@
     "chai": "^4.2.0",
     "mocha": "^8.1.3"
   },
-  "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/gabrielgrant/broccoli-less-single/issues"
   },
