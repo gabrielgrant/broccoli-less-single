@@ -24,7 +24,7 @@ function LessCompiler(sourceNodes, inputFile, outputFile, _options) {
 
   // clone the _options hash to prevent mutating what was
   // passed into us with fallback values. see issue #29
-  var options = require('lodash.merge')({}, _options);
+  var options = require('lodash/merge')({}, _options);
 
   if (options.sourceMap) {
     if (typeof options.sourceMap !== 'object') {
@@ -57,7 +57,7 @@ LessCompiler.prototype.build = function() {
     paths: []
   };
 
-  require('lodash.merge')(lessOptions, this.lessOptions);
+  require('lodash/merge')(lessOptions, this.lessOptions);
 
   lessOptions.paths = [path.dirname(lessOptions.filename)]
     .concat(this.inputPaths)

@@ -42,7 +42,7 @@
     "broccoli-caching-writer": "^3.0.3",
     "include-path-searcher": "^0.1.0",
     "less": "^3.12.2",
-    "lodash.merge": "^4.6.2",
+    "lodash": "^4.17.15",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
